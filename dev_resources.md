@@ -1,0 +1,1 @@
+- [Nomics API Docs](https://nomics.com/docs/#tag/Currencies-Ticker)
