@@ -27,7 +27,7 @@ def make_ticker_info(ticker_info):
                       name=ticker_info['name'], price=format_floats(ticker_info['price']), rank=ticker_info['rank'],
                       one_day_price_change=format_floats(ticker_info['1d']['price_change']),
                       thirty_day_price_change=format_floats(ticker_info['30d']['price_change']),
-                      one_day_price_change_pct=ticker_info['1d']['price_change_pct'],
+                      one_day_price_change_pct=format_floats(ticker_info['1d']['price_change_pct']),
                       thirty_day_price_change_pct=ticker_info['30d']['price_change_pct'])
 
 
@@ -39,9 +39,12 @@ def home():
     FONT = "Trebuchet MS"
 
     url = get_request_url(API_KEY, CURRENCY)
+
     try:
         request_response = json.loads(urllib.request.urlopen(url).read())[NUM_CURRENCIES - 1]
+
     except urllib.error.HTTPError:
+        print("Too many requests!")
         time.sleep(5)
         request_response = json.loads(urllib.request.urlopen(url).read())[NUM_CURRENCIES - 1]
     ticker_info = make_ticker_info(request_response)
